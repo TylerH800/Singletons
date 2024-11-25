@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -34,6 +35,8 @@ public class PlayerScript : MonoBehaviour
         LevelManager.Instance.SetPlayerHealth(startingHealth);
 
         playerInput = new PlayerInput();
+
+        StartCoroutine(PlayBGMusic());
     }
 
     // Update is called once per frame
@@ -42,8 +45,7 @@ public class PlayerScript : MonoBehaviour
         Movement();
 
         if (LevelManager.Instance.GetPlayerHealth() <= 0)
-        {
-            PlaySFX(hit);
+        {            
             Destroy(gameObject);
             gameOverText.SetActive(true);
         }
@@ -70,7 +72,8 @@ public class PlayerScript : MonoBehaviour
         Invoke("AttackReset", attackCld);       
 
         Instantiate(explosion, transform.position, Quaternion.identity);
-        PlaySFX(boom);
+        
+        AudioManager.instance.PlayClip(0, 0.7f);
 
         Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, attackRadius, whatIsEnemy);
        
@@ -89,10 +92,17 @@ public class PlayerScript : MonoBehaviour
         canAttack = true;
     }
 
-    void PlaySFX(AudioClip clip)
+    IEnumerator PlayBGMusic()
     {
-        source.PlayOneShot(clip, 0.7f);
+        float length = 90f;
+        while (true)
+        {
+            AudioManager.instance.PlayClip(4, 0.15f);
+            yield return new WaitForSeconds(length);
+        }
+        
     }
+    
 
     private void OnDrawGizmosSelected()
     {
