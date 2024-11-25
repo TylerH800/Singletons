@@ -20,10 +20,17 @@ public class PlayerScript : MonoBehaviour
     private Vector2 moveDirection;
 
     public GameObject gameOverText;
+
+
+    private AudioSource source;
+    public AudioClip boom;
+    public AudioClip hit;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        source = GetComponent<AudioSource>();
         LevelManager.Instance.SetPlayerHealth(startingHealth);
 
         playerInput = new PlayerInput();
@@ -36,6 +43,7 @@ public class PlayerScript : MonoBehaviour
 
         if (LevelManager.Instance.GetPlayerHealth() <= 0)
         {
+            PlaySFX(hit);
             Destroy(gameObject);
             gameOverText.SetActive(true);
         }
@@ -62,6 +70,7 @@ public class PlayerScript : MonoBehaviour
         Invoke("AttackReset", attackCld);       
 
         Instantiate(explosion, transform.position, Quaternion.identity);
+        PlaySFX(boom);
 
         Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, attackRadius, whatIsEnemy);
        
@@ -78,6 +87,11 @@ public class PlayerScript : MonoBehaviour
     void AttackReset()
     {
         canAttack = true;
+    }
+
+    void PlaySFX(AudioClip clip)
+    {
+        source.PlayOneShot(clip, 0.7f);
     }
 
     private void OnDrawGizmosSelected()

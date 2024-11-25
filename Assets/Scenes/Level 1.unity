@@ -2190,6 +2190,8 @@ MonoBehaviour:
   explosion: {fileID: 4518974450892007937, guid: 46b25ab6ecd8032429b3d4f40f875999, type: 3}
   startingHealth: 30
   gameOverText: {fileID: 31044490}
+  boom: {fileID: 8300000, guid: ae97c200c95b25149955cb363320d3ef, type: 3}
+  hit: {fileID: 8300000, guid: 455f0706127a5524b969d2d033292bca, type: 3}
 --- !u!4 &1803269177
 Transform:
   m_ObjectHideFlags: 0

@@ -10,6 +10,10 @@ public class LevelManager : MonoBehaviour
     private int enemyCount;
     private int round;
 
+    private AudioSource source;
+    public AudioClip hit;
+    public AudioClip newLevel;
+
     private void Awake()
     {
         if (Instance == null)
@@ -22,6 +26,11 @@ public class LevelManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    private void Start()
+    {
+        source = GetComponent<AudioSource>();
     }
 
     #region Levels
@@ -46,6 +55,7 @@ public class LevelManager : MonoBehaviour
     public void DoDamage(int damage)
     {
         playerHealth -= damage;
+        source.PlayOneShot(hit, 0.7f);
     }
 
     #endregion
@@ -73,6 +83,7 @@ public class LevelManager : MonoBehaviour
     public void IncreaseRound()
     {
         round++;
+        source.PlayOneShot(newLevel, 0.7f);
     }
     
 
@@ -83,7 +94,7 @@ public class LevelManager : MonoBehaviour
 
     public void ResetRound()
     {
-        round = 1;
+        round = 0;
     }
 
     #endregion
