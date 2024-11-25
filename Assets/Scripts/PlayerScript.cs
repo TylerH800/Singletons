@@ -22,6 +22,8 @@ public class PlayerScript : MonoBehaviour
 
     public GameObject gameOverText;
 
+    public SpriteRenderer body;
+
 
     private AudioSource source;
     public AudioClip boom;
@@ -43,6 +45,7 @@ public class PlayerScript : MonoBehaviour
     void Update()
     {
         Movement();
+        ChangeColour();
 
         if (LevelManager.Instance.GetPlayerHealth() <= 0)
         {            
@@ -99,10 +102,27 @@ public class PlayerScript : MonoBehaviour
         {
             AudioManager.instance.PlayClip(4, 0.15f);
             yield return new WaitForSeconds(length);
+        }        
+    }    
+
+    void ChangeColour()
+    {
+        switch (LevelManager.Instance.GetPlayerHealth())
+        {
+            case 3:
+                body.color = new Color32(31, 222, 50, 255);
+                return;
+
+            case 2:
+                body.color = new Color32(250, 166, 40, 255);
+                return;
+
+            case 1:
+                body.color = Color.red;
+                return;
         }
-        
+
     }
-    
 
     private void OnDrawGizmosSelected()
     {

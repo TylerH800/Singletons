@@ -1,8 +1,10 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+    [Header("Rounds and Enemies")]
     public TextMeshProUGUI round;
     public TextMeshProUGUI enemies;
 
@@ -15,7 +17,8 @@ public class UIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //rounds and enemies
         round.text = "Round: " + LevelManager.Instance.GetRound();
-        enemies.text = "Enemies left: " + LevelManager.Instance.GetEnemyCount();
+        enemies.text = "Enemies left: " + LevelManager.Instance.GetEnemyCount();        
     }
 }

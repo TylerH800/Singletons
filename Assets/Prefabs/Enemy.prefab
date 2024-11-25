@@ -115,7 +115,7 @@ MonoBehaviour:
   moveSpeed: 2.5
   bumpForce: 1000
   lookRadius: 25
-  damage: 10
+  damage: 1
   whatIsPlayer:
     serializedVersion: 2
     m_Bits: 8

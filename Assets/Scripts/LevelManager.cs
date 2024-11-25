@@ -75,6 +75,7 @@ public class LevelManager : MonoBehaviour
     {
         round++;
         AudioManager.instance.PlayClip(1, 0.7f);
+        
     }
     
 
