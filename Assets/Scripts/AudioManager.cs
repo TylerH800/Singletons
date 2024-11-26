@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AudioManager : MonoBehaviour
 {
@@ -36,7 +37,6 @@ public class AudioManager : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         audioSource.Stop(); //stop currently playing clip
 
-       
     }
 
 

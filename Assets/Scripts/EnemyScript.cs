@@ -63,11 +63,10 @@ public class EnemyScript : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (!this.gameObject.scene.isLoaded)
+        if (this.gameObject.scene.isLoaded)
         {
-            return;
+            Instantiate(miniExplosion, transform.position, Quaternion.identity);            
         }
-        Instantiate(miniExplosion, transform.position, Quaternion.identity);
     }
 
 

@@ -33,7 +33,7 @@ public class SpawnManager : MonoBehaviour
         LevelManager.Instance.SetEnemyCount(LevelManager.Instance.GetRound());
         for (int i = 0; i < LevelManager.Instance.GetRound(); i++)
         {
-            print("spawning");
+            //print("spawning");
             Instantiate(enemyPrefab, GenerateSpawnPos(), Quaternion.identity);
             yield return new WaitForSeconds(time);
         }

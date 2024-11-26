@@ -23,11 +23,16 @@ public class PlayerScript : MonoBehaviour
     public GameObject gameOverText;
 
     public SpriteRenderer body;
+    public SpriteRenderer outline;
 
 
     private AudioSource source;
     public AudioClip boom;
     public AudioClip hit;
+
+    [Header("Powerups")]
+    public GameObject[] powerUps;
+    public float powerUpChance;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -48,7 +53,7 @@ public class PlayerScript : MonoBehaviour
         ChangeColour();
 
         if (LevelManager.Instance.GetPlayerHealth() <= 0)
-        {            
+        {
             Destroy(gameObject);
             gameOverText.SetActive(true);
         }
@@ -82,11 +87,10 @@ public class PlayerScript : MonoBehaviour
        
         foreach (Collider2D hit in hits)
         {
-            print("hit");
+            SpawnPowerUp(hit.transform.position);
             Destroy(hit.gameObject);
 
             LevelManager.Instance.EnemyDies();
-            print(LevelManager.Instance.GetEnemyCount());
         }
     }
     
@@ -95,18 +99,39 @@ public class PlayerScript : MonoBehaviour
         canAttack = true;
     }
 
+    void SpawnPowerUp(Vector2 position)
+    {
+        int index = Random.Range(0, 100);
+        if (index > powerUpChance) //5% chance of spawn
+        {
+            return;
+        }
+        print("spawn");
+        int powerup = Random.Range(0, powerUps.Length);
+        Instantiate(powerUps[powerup], position, Quaternion.identity);
+    }
+
     IEnumerator PlayBGMusic()
     {
         float length = 90f;
         while (true)
         {
-            AudioManager.instance.PlayClip(4, 0.15f);
+            AudioManager.instance.PlayClip(3, 0.2f);
             yield return new WaitForSeconds(length);
         }        
     }    
 
     void ChangeColour()
     {
+        if (canAttack)
+        {         
+            outline.color = Color.black;
+        }
+        else
+        {            
+            outline.color = new Color32(109, 0, 0, 255);
+        }
+
         switch (LevelManager.Instance.GetPlayerHealth())
         {
             case 3:
@@ -121,6 +146,8 @@ public class PlayerScript : MonoBehaviour
                 body.color = Color.red;
                 return;
         }
+
+        
 
     }
 

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -47,6 +48,16 @@ public class LevelManager : MonoBehaviour
     public void DoDamage(int damage)
     {
         playerHealth -= damage;
+        if (playerHealth <= 0)
+        {
+            StartCoroutine(GameOver());
+        }
+    }
+
+    IEnumerator GameOver()
+    {
+        yield return new WaitForSeconds(3);
+        LoadLevel("Frontend");
     }
 
     #endregion
@@ -66,6 +77,8 @@ public class LevelManager : MonoBehaviour
     {
         enemyCount--;
     }
+
+    
 
     #endregion
 

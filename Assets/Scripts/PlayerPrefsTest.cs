@@ -9,19 +9,37 @@ public class PlayerPrefsTest : MonoBehaviour
     public TextMeshProUGUI loadstext;
     int score = 0;
     int timesLoaded = 0;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Awake()
+
+
+    private void Start()
     {
-        timesLoaded = PlayerPrefs.GetInt("TimesLoaded", 0);
+        //times loaded
+        if (PlayerPrefs.HasKey("TimesLoaded"))
+        {
+            timesLoaded = PlayerPrefs.GetInt("TimesLoaded");
+        }
+        else
+        {
+            PlayerPrefs.SetInt("TimesLoaded", 0);
+        }
         timesLoaded++;
         PlayerPrefs.SetInt("TimesLoaded", timesLoaded);
         loadstext.text = "Times loaded: " + PlayerPrefs.GetInt("TimesLoaded");
+
+        //highscore
+        if (PlayerPrefs.HasKey("HighScore"))
+        {
+            PlayerPrefs.GetInt("HighScore");
+        }
+        else
+        {
+            PlayerPrefs.SetInt("HighScore", 0);
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-
         scoreText.text = "Score: " + score + "         HighScore: " + PlayerPrefs.GetInt("HighScore", 0); 
     }
 
