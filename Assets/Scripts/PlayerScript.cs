@@ -40,6 +40,7 @@ public class PlayerScript : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         source = GetComponent<AudioSource>();
         LevelManager.Instance.SetPlayerHealth(startingHealth);
+        LevelManager.Instance.ResetKills();
 
         playerInput = new PlayerInput();
 
@@ -91,6 +92,7 @@ public class PlayerScript : MonoBehaviour
             Destroy(hit.gameObject);
 
             LevelManager.Instance.EnemyDies();
+            LevelManager.Instance.EnemyKilled();
         }
     }
     

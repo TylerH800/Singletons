@@ -8,6 +8,9 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI round;
     public TextMeshProUGUI enemies;
 
+    public TextMeshProUGUI gameOver;
+    public TextMeshProUGUI highestRound;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -19,6 +22,9 @@ public class UIManager : MonoBehaviour
     {
         //rounds and enemies
         round.text = "Round: " + LevelManager.Instance.GetRound();
-        enemies.text = "Enemies left: " + LevelManager.Instance.GetEnemyCount();        
+        enemies.text = "Enemies left: " + LevelManager.Instance.GetEnemyCount();
+
+        gameOver.text = "You survived " + LevelManager.Instance.GetRound() + " rounds and killed " + LevelManager.Instance.GetKills() + " enemies!";
+        highestRound.text = "Your highest round is round " + PlayerPrefs.GetInt("HighestRound") + "!";
     }
 }

@@ -7,6 +7,7 @@ public class LevelManager : MonoBehaviour
     public static LevelManager Instance;
 
     private int playerHealth;
+    private int kills = 0;
 
     private int enemyCount;
     private int round;
@@ -22,6 +23,18 @@ public class LevelManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
+        }
+    }
+
+    private void Start()
+    {
+        if (PlayerPrefs.HasKey("HighestRound"))
+        {
+            PlayerPrefs.GetInt("HighestRound");
+        }
+        else
+        {
+            PlayerPrefs.SetInt("HighestRound", 1);
         }
     }
 
@@ -63,6 +76,7 @@ public class LevelManager : MonoBehaviour
     #endregion
 
     #region enemies
+    //----- Keeps track of the enemy count for round purposes --------
     public void SetEnemyCount(int count)
     {
         enemyCount = count;
@@ -78,6 +92,21 @@ public class LevelManager : MonoBehaviour
         enemyCount--;
     }
 
+    //----- Keeps track of the players kills ---------
+    public void EnemyKilled()
+    {
+        kills++;
+    }
+    
+    public void ResetKills()
+    {
+        kills = 0;
+    }
+    public int GetKills()
+    {
+        return kills;
+    }
+
     
 
     #endregion
@@ -88,6 +117,11 @@ public class LevelManager : MonoBehaviour
     {
         round++;
         AudioManager.instance.PlayClip(1, 0.7f);
+
+        if (round > PlayerPrefs.GetInt("HighestRound"))
+        {
+            PlayerPrefs.SetInt("HighestRound", round);
+        }
         
     }
     

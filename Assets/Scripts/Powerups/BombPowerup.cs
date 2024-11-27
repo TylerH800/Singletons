@@ -21,6 +21,7 @@ public class BombPowerup : MonoBehaviour
                 Destroy(hit.gameObject);
 
                 LevelManager.Instance.EnemyDies();
+                LevelManager.Instance.EnemyKilled();
             }
 
             Destroy(gameObject);
