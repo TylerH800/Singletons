@@ -118,7 +118,7 @@ public class PlayerScript : MonoBehaviour
         float length = 90f;
         while (true)
         {
-            AudioManager.instance.PlayClip(3, 0.2f);
+            AudioManager.instance.PlayClip(3, AudioManager.instance.GetVolume());
             yield return new WaitForSeconds(length);
         }        
     }    

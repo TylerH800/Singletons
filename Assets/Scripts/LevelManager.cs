@@ -43,6 +43,7 @@ public class LevelManager : MonoBehaviour
     public void LoadLevel(string index)
     {
         SceneManager.LoadScene(index);
+       
     }
 
     #endregion

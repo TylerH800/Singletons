@@ -2,10 +2,16 @@ using UnityEngine;
 
 public class BombPowerup : MonoBehaviour
 {
+    public float despawnTime = 15f;
+
     public LayerMask whatIsEnemy;
     public GameObject bigExplosion;
     public float bombRadius;
 
+    private void Start()
+    {
+        Destroy(gameObject, despawnTime);
+    }
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Player"))

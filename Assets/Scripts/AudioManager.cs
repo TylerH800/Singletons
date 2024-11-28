@@ -5,6 +5,8 @@ public class AudioManager : MonoBehaviour
 {
     public static AudioManager instance;
 
+    private float volume;
+
     public AudioClip[] clips;
     AudioSource audioSource; //reference to the audio source component on the game object
 
@@ -25,6 +27,14 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        if (!PlayerPrefs.HasKey("Volume"))
+        {
+            PlayerPrefs.SetFloat("Volume", 0.5f);
+        }
+    }
+
     public void PlayClip(int clipNumber, float volume)
     {
         audioSource = GetComponent<AudioSource>();
@@ -38,9 +48,18 @@ public class AudioManager : MonoBehaviour
         audioSource.Stop(); //stop currently playing clip
 
     }
+    #region Volume
+    public void SetVolume(float enteredVol)
+    {
+        volume = enteredVol;
+        PlayerPrefs.SetFloat("Volume", volume);
+    }
 
+    public float GetVolume()
+    {
+        return PlayerPrefs.GetFloat("Volume");
+    }
 
-
-
+    #endregion
 }
 
