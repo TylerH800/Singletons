@@ -5,8 +5,6 @@ public class AudioManager : MonoBehaviour
 {
     public static AudioManager instance;
 
-    private float volume;
-
     public AudioClip[] clips;
     public AudioSource musicSource;
     public AudioSource sfxSource;
@@ -46,6 +44,15 @@ public class AudioManager : MonoBehaviour
         else
         {
             PlayerPrefs.SetFloat("sfxVol", 0.5f);
+        }
+
+        if (PlayerPrefs.HasKey("masterVol"))
+        {
+            PlayerPrefs.GetFloat("masterVol");
+        }
+        else
+        {
+            PlayerPrefs.SetFloat("masterVol", 0.5f);
         }
     }
 
