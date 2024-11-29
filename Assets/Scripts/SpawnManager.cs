@@ -29,6 +29,11 @@ public class SpawnManager : MonoBehaviour
 
     IEnumerator NewRound(float time)
     {
+        if (LevelManager.Instance.GetPlayerHealth() <= 0)
+        {
+            yield break;
+        }
+
         LevelManager.Instance.IncreaseRound();
         LevelManager.Instance.SetEnemyCount(LevelManager.Instance.GetRound());
         for (int i = 0; i < LevelManager.Instance.GetRound(); i++)

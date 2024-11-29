@@ -62,8 +62,7 @@ public class PlayerScript : MonoBehaviour
 
     void Movement()
     {               
-        rb.linearVelocity = moveDirection * speed;
-        
+        rb.linearVelocity = moveDirection * speed;        
     }
 
     void OnMove(InputValue value)
@@ -72,7 +71,8 @@ public class PlayerScript : MonoBehaviour
     }
 
     void OnAttack(InputValue value)
-    {
+    {        
+
         if (!canAttack)
         {
             return;
@@ -82,7 +82,7 @@ public class PlayerScript : MonoBehaviour
 
         Instantiate(explosion, transform.position, Quaternion.identity);
         
-        AudioManager.instance.PlayClip(0, 0.7f);
+        AudioManager.instance.PlayClip(0, AudioManager.instance.sfxSource);
 
         Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, attackRadius, whatIsEnemy);
        
@@ -94,6 +94,9 @@ public class PlayerScript : MonoBehaviour
             LevelManager.Instance.EnemyDies();
             LevelManager.Instance.EnemyKilled();
         }
+
+
+        
     }
     
     void AttackReset()
@@ -118,7 +121,7 @@ public class PlayerScript : MonoBehaviour
         float length = 90f;
         while (true)
         {
-            AudioManager.instance.PlayClip(3, AudioManager.instance.GetVolume());
+            AudioManager.instance.PlayClip(3, AudioManager.instance.musicSource);
             yield return new WaitForSeconds(length);
         }        
     }    

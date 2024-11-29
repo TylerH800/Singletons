@@ -8,7 +8,8 @@ public class AudioManager : MonoBehaviour
     private float volume;
 
     public AudioClip[] clips;
-    AudioSource audioSource; //reference to the audio source component on the game object
+    public AudioSource musicSource;
+    public AudioSource sfxSource;
 
     void Awake()
     {
@@ -29,37 +30,38 @@ public class AudioManager : MonoBehaviour
 
     private void Start()
     {
-        if (!PlayerPrefs.HasKey("Volume"))
+        if (PlayerPrefs.HasKey("musicVol"))
         {
-            PlayerPrefs.SetFloat("Volume", 0.5f);
+            PlayerPrefs.GetFloat("musicVol");
+        }
+        else
+        {
+            PlayerPrefs.SetFloat("musicVol", 0.5f);
+        }
+
+        if (PlayerPrefs.HasKey("sfxVol"))
+        {
+            PlayerPrefs.GetFloat("sfxVol");
+        }
+        else
+        {
+            PlayerPrefs.SetFloat("sfxVol", 0.5f);
         }
     }
 
-    public void PlayClip(int clipNumber, float volume)
+    public void PlayClip(int clipNumber, AudioSource source)
     {
-        audioSource = GetComponent<AudioSource>();
-        audioSource.PlayOneShot(clips[clipNumber], volume); // start clip
+        source.PlayOneShot(clips[clipNumber]); // start clip
     }
 
 
     public void StopClip()
     {
-        audioSource = GetComponent<AudioSource>();
-        audioSource.Stop(); //stop currently playing clip
+        musicSource.Stop();
+        sfxSource.Stop();
 
     }
-    #region Volume
-    public void SetVolume(float enteredVol)
-    {
-        volume = enteredVol;
-        PlayerPrefs.SetFloat("Volume", volume);
-    }
+ 
 
-    public float GetVolume()
-    {
-        return PlayerPrefs.GetFloat("Volume");
-    }
-
-    #endregion
 }
 

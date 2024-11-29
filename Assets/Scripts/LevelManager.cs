@@ -51,7 +51,7 @@ public class LevelManager : MonoBehaviour
     #region health
     public void SetPlayerHealth(int health)
     {
-        playerHealth = health;
+        playerHealth = Mathf.Clamp(health, 0, 3);
     }
 
     public int GetPlayerHealth()
@@ -61,17 +61,7 @@ public class LevelManager : MonoBehaviour
 
     public void DoDamage(int damage)
     {
-        playerHealth -= damage;
-        if (playerHealth <= 0)
-        {
-            StartCoroutine(GameOver());
-        }
-    }
-
-    IEnumerator GameOver()
-    {
-        yield return new WaitForSeconds(3);
-        LoadLevel("Frontend");
+        playerHealth -= damage;        
     }
 
     #endregion
@@ -117,7 +107,7 @@ public class LevelManager : MonoBehaviour
     public void IncreaseRound()
     {
         round++;
-        AudioManager.instance.PlayClip(1, 0.7f);
+        AudioManager.instance.PlayClip(1, AudioManager.instance.sfxSource);
 
         if (round > PlayerPrefs.GetInt("HighestRound"))
         {

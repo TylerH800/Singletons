@@ -54,7 +54,7 @@ public class EnemyScript : MonoBehaviour
             LevelManager.Instance.EnemyDies();
             print(LevelManager.Instance.GetEnemyCount());
 
-            AudioManager.instance.PlayClip(2, 0.7f);
+            AudioManager.instance.PlayClip(2, AudioManager.instance.sfxSource);
             
             Destroy(gameObject);
         }

@@ -17,7 +17,7 @@ public class BombPowerup : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             print("WE BRING THE BOOOOM");
-            AudioManager.instance.PlayClip(4, 0.7f);
+            AudioManager.instance.PlayClip(4, AudioManager.instance.sfxSource);
             Instantiate(bigExplosion, transform.position, Quaternion.identity);
 
             Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, bombRadius, whatIsEnemy);
